@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Payments Application">
+
+    <title>Payment Checkout</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-datepicker.css" rel="stylesheet">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/tether.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <form class="form-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Orders</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="control-label col-sm-12" for="ssn">Price:</label>
+                                <div class="col-sm-12">
+                                    <input type="number" min="0.00" max="10000.00" class="form-control" id="price">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-12" for="ssn">Currency:</label>
+                                <div class="col-sm-12">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-info">Select Currency</button>
+                                        <button type="button" class="btn btn-info dropdown-toggle"
+                                            data-toggle="dropdown">
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">USD</a>
+                                            <a class="dropdown-item" href="#">EUR</a>
+                                            <a class="dropdown-item" href="#">THB</a>
+                                            <a class="dropdown-item" href="#">HKD</a>
+                                            <a class="dropdown-item" href="#">SGD</a>
+                                            <a class="dropdown-item" href="#">AUD</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-12" for="ssn">Customer Full Name:</label>
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" id="cust_name">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <br>
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Payments</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="control-label col-sm-8" for="ssn">Credit Card Holder Name:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="cc_holder_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-8" for="ssn">Credit Card Number:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="cc_number">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-8" for="ssn">Credit Card Expiration:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="cc_exp">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-8" for="ssn">Credit Card CCV:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="cc_ccv">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+</body>
+<script>
+</script>
+
+</html>
