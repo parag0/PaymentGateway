@@ -6,5 +6,6 @@ module.exports = Object.freeze({
     NO_REDIRECT_URI: "No Redirect URL Present",
     INVALID_PARAMETER: "Invalid Parameter",
     PAYMENT_NOT_SUCCESSFUL: "Payment Not Successful",
-    PAYMENT_SUCCESSFUL: "Payment Successful"
+    PAYMENT_SUCCESSFUL: "Payment Successful",
+    GENERIC_ERROR: "Error Occured"
 });

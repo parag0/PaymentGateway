@@ -47,7 +47,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use('/checkout', indexRouter);
+app.use('/', indexRouter);
 app.use('/payments/paypal', paypalRouter);
 app.use('/payments/braintree', braintreeRouter);
 

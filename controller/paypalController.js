@@ -17,27 +17,30 @@ class PayPalPaymentProcessor {
 
 	/**
 	 * Creates a payment request object to be used for creating payment
-	 * @param {number} amount - amount to pay
+	 * @param {string} amount - amount to pay
 	 * @param {string} currency - curreny to be used for transaction
 	 * @return {object} - returns a json payment object
 	 */
 	getPaymentRequestObject(amount, currency) {
-		return JSON.stringify({
-			intent: 'sale',
-			payer: {
-				payment_method: 'paypal'
-			},
-			redirect_urls: {
-				return_url: constants.PAYPAL_RETURN_URL,
-				cancel_url: constants.PAYPAL_CANCEL_URL
-			},
-			transactions: [{
-				amount: {
-					total: amount,
-					currency: currency
+		return new Promise((resolve, reject) => {
+			resolve(JSON.stringify({
+				intent: 'sale',
+				payer: {
+					payment_method: 'paypal'
 				},
-				description: 'This is the payment transaction description.'
-			}]
+				note_to_payer: 'This is a dummy note',
+				redirect_urls: {
+					return_url: constants.PAYPAL_RETURN_URL,
+					cancel_url: constants.PAYPAL_CANCEL_URL
+				},
+				transactions: [{
+					amount: {
+						total: amount,
+						currency: currency
+					},
+					description: 'This is the payment transaction description.'
+				}]
+			}));
 		});
 	}
 

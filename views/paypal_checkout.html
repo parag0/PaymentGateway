@@ -7,10 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Payments Application">
 
-    <title>Payment Checkout</title>
+    <title>Paypal Payment</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/bootstrap-datepicker.css" rel="stylesheet">
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/tether.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
@@ -21,7 +20,7 @@
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                <form class="form-group" action="/payments/paypal/intiatePayment" method="POST">
+                <form class="form-group" action="/payments/paypal/initiatePayment" method="POST">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Orders</h3>
@@ -30,7 +29,8 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-12" for="ssn">Price:</label>
                                 <div class="col-sm-12">
-                                    <input type="number" min="0.00" max="10000.00" class="form-control" id="price">
+                                    <input type="number" name="amount" min="0.00" max="10000.00" class="form-control"
+                                        id="price">
                                 </div>
                             </div>
 
@@ -38,18 +38,17 @@
                                 <label class="control-label col-sm-12" for="ssn">Currency:</label>
                                 <div class="col-sm-12">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-info">Select Currency</button>
-                                        <button type="button" class="btn btn-info dropdown-toggle"
-                                            data-toggle="dropdown">
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">USD</a>
-                                            <a class="dropdown-item" href="#">EUR</a>
-                                            <a class="dropdown-item" href="#">THB</a>
-                                            <a class="dropdown-item" href="#">HKD</a>
-                                            <a class="dropdown-item" href="#">SGD</a>
-                                            <a class="dropdown-item" href="#">AUD</a>
-                                        </div>
+                                        <select type="button" class="btn btn-info" name="currency">
+                                            <div class="dropdown-menu">
+                                                <option class="dropdown-item" href="#">Select Currency</option>
+                                                <option class="dropdown-item" href="#">USD</option>
+                                                <option class="dropdown-item" href="#">EUR</option>
+                                                <option class="dropdown-item" href="#">THB</option>
+                                                <option class="dropdown-item" href="#">HKD</option>
+                                                <option class="dropdown-item" href="#">SGD</option>
+                                                <option class="dropdown-item" href="#">AUD</option>
+                                            </div>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +56,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-12" for="ssn">Customer Full Name:</label>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="cust_name">
+                                    <input type="text" class="form-control" id="cust_name" name="cust_name">
                                 </div>
                             </div>
                         </div>
