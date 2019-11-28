@@ -1,9 +1,20 @@
-var express = require('express');
-var router = express.Router();
+'use strict'
+const express = require('express');
+const router = express.Router();
+const payPalcontroller = require('../controller/paypalController');
 
-/* GET users listing. */
 router.get('/pay', function (req, res, next) {
-  res.send('respond with a resource');
+	var paymentId = req.query.paymentId;
+	var payerId = { payer_id: req.query.PayerID };
+
+});
+
+router.get('/cancel', function (req, res, next) {
+	// console.log(req);
+	res.send('Your Payment Has been canceled');
+});
+
+router.post("/intiatePayment", function (req, res, next) {
 });
 
 module.exports = router;
