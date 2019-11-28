@@ -17,6 +17,83 @@
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/tether.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
+    <style>
+        .hosted-field {
+            height: 50px;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            display: inline-block;
+            box-shadow: none;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 6px;
+            border: 1px solid #dddddd;
+            line-height: 20px;
+            background: #fcfcfc;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, white 50%, #fcfcfc 50%);
+            background-size: 200% 100%;
+            background-position: right bottom;
+            transition: all 300ms ease-in-out;
+        }
+
+        .hosted-fields--label {
+            font-family: courier, monospace;
+            text-transform: uppercase;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .button-container {
+            display: block;
+            text-align: center;
+        }
+
+        .button {
+            cursor: pointer;
+            font-weight: 500;
+            line-height: inherit;
+            position: relative;
+            text-decoration: none;
+            text-align: center;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 3px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            display: inline-block;
+        }
+
+        .button--small {
+            padding: 10px 20px;
+            font-size: 0.875rem;
+        }
+
+        .button--green {
+            outline: none;
+            background-color: #64d18a;
+            border-color: #64d18a;
+            color: white;
+            transition: all 200ms ease;
+        }
+
+        .button--green:hover {
+            background-color: #8bdda8;
+            color: white;
+        }
+
+        .braintree-hosted-fields-focused {
+            border: 1px solid #64d18a;
+            border-radius: 1px;
+            background-position: left bottom;
+        }
+
+        .braintree-hosted-fields-invalid {
+            border: 1px solid #ed574a;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,7 +101,7 @@
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                <form class="form-group" id="hosted-fields-form" action="/payments/paypal/initiatePayment"
+                <form class="form-group" id="hosted-fields-form" action="/payments/braintree/initiatePayment"
                     method="POST">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -43,7 +120,7 @@
                                 <label class="control-label col-sm-12" for="ssn">Currency:</label>
                                 <div class="col-sm-12">
                                     <div class="btn-group">
-                                        <select type="button" class="btn btn-info" name="currency">
+                                        <select type="button" id="currency" class="btn btn-info" name="currency">
                                             <div class="dropdown-menu">
                                                 <option class="dropdown-item" href="#">Select Currency</option>
                                                 <option class="dropdown-item" href="#">USD</option>
@@ -73,49 +150,45 @@
                             <h3 class="panel-title">Payments</h3>
                         </div>
                         <div class="panel-body">
-                            <div id="get_paypal_button_here"></div>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <br>
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Payments</h3>
-                        </div>
-                        <div class="panel-body">
                             <div class="form-group">
                                 <label class="control-label col-sm-8" for="ssn">Credit Card Holder Name:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="cc_holder_name">
+                                    <input type="text" class="form-control" id="cc_holder_name" name="card_holder_name">
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label class="control-label col-sm-8" for="ssn">Credit Card Number:</label>
+                                <label class="control-label col-sm-8 hosted-fields--label" for="card-number">Credit
+                                    Card Number:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="card-number">
+                                    <div class="form-control hosted-field" id="card-number">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-8" for="ssn">Credit Card Expiration:</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="expiration-date">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-8 hosted-fields--label"
+                                        for="expiration-date">Credit Card Expiration:</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-control hosted-field" id="expiration-date"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-8" for="ssn">Credit Card CVV:</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="cvv">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-8 hosted-fields--label" for="cvv">Credit Card
+                                        CVV:</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-control hosted-field" id="cvv">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="checkout-message"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-4">
+                                        <button type="submit" value="Pay" class="btn btn-primary">Submit</button>
+                                    </div>
+                                    <div class="col-sm-4"></div>
                                 </div>
                             </div>
                         </div>
-                        <div id="checkout-message"></div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-4"></div>
-                        <div class="col-sm-4">
-                            <input type="submit" value="Pay" class="btn btn-primary" disabled />
-                        </div>
-                        <div class="col-sm-4"></div>
                     </div>
                 </form>
             </div>
@@ -128,7 +201,6 @@
         var submit = document.querySelector('input[type="submit"]');
 
         braintree.client.create({
-            // Insert your tokenization key here
             authorization: 'sandbox_hc4gs6tq_3z38k3psrs55y2kr'
         }, function (clientErr, clientInstance) {
             if (clientErr) {
@@ -136,13 +208,8 @@
                 return;
             }
 
-            // Create a hostedFields component to initialize the form
-
             braintree.hostedFields.create({
                 client: clientInstance,
-                // Customize the Hosted Fields.
-                // More information can be found at:
-                // https://developers.braintreepayments.com/guides/hosted-fields/styling/javascript/v3
                 styles: {
                     'input': {
                         'font-size': '14px'
@@ -154,7 +221,6 @@
                         'color': 'green'
                     }
                 },
-                // Configure which fields in your card form will be generated by Hosted Fields instead
                 fields: {
                     number: {
                         selector: '#card-number',
@@ -169,49 +235,52 @@
                         placeholder: '10/2019'
                     }
                 }
-            }, function (hostedFieldsErr, instance) {
+            }, function (hostedFieldsErr, hostedFieldsInstance) {
                 if (hostedFieldsErr) {
                     console.error(hostedFieldsErr);
                     return;
                 }
 
-                // Once the fields are initialized enable the submit button
-                submit.removeAttribute('disabled');
-
-                // Initialize the form submit event
                 form.addEventListener('submit', function (event) {
                     event.preventDefault();
-                    // When the user clicks on the 'Submit payment' button this code will send the
-                    // encrypted payment information in a variable called a payment method nonce
-                    instance.tokenize(function (tokenizeErr, payload) {
+
+                    hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
                         if (tokenizeErr) {
                             console.error(tokenizeErr);
                             return;
                         }
 
-                        instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
-                            $.ajax({
-                                type: 'POST',
-                                url: '/checkout',
-                                data: { 'paymentMethodNonce': payload.nonce }
-                            }).done(function (result) {
-                                // Tear down the Hosted Fields form
-                                instance.teardown(function (teardownErr) {
-                                    if (teardownErr) {
-                                        console.error('Could not tear down the Hosted Fields form!');
-                                    } else {
-                                        console.info('Hosted Fields form has been torn down!');
-                                        // Remove the 'Submit payment' button
-                                        $('#hosted-fields-form').remove();
-                                    }
-                                });
+                        let dataObj = {
+                            'paymentMethodNonce': payload.nonce,
+                            'price': $("#price").val(),
+                            'currency': $("#currency").val(),
+                            'customerName': $("#cust_name").val(),
+                            'creditCardHolderName': $("#cc_holder_name").val()
+                        }
 
-                                if (result.success) {
-                                    $('#checkout-message').html('<h1>Success</h1><p>Your Hosted Fields form is working! Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>');
-                                } else {
-                                    $('#checkout-message').html('<h1>Error</h1><p>Check your console.</p>');
-                                }
-                            });
+                        $.ajax({
+                            type: 'POST',
+                            url: '/payments/braintree/initiatePayment',
+                            data: dataObj
+                        }).done(function (result) {
+                            console.log(result);
+                            // // Tear down the Drop-in UI
+                            // hostedFieldsInstance.teardown(function (teardownErr) {
+                            //     if (teardownErr) {
+                            //         console.error('Could not tear down Drop-in UI!');
+                            //     } else {
+                            //         console.info('Drop-in UI has been torn down!');
+                            //         // Remove the 'Submit payment' button
+                            //         $('#submit-button').remove();
+                            //     }
+                            // });
+
+                            if (result.success) {
+                                $('#checkout-message').html('<h1>Success</h1><p>Your Drop-in UI is working! Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>');
+                            } else {
+                                console.log(result);
+                                $('#checkout-message').html('<h1>Error</h1><p>Check your console.</p>');
+                            }
                         });
                     });
                 }, false);
