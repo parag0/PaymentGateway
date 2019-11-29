@@ -12,7 +12,6 @@ router.get('/pay', function (req, res, next) {
 });
 
 router.get('/cancel', function (req, res, next) {
-
 	res.send(constants.PAYMENT_NOT_SUCCESSFUL);
 });
 
