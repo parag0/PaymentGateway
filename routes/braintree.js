@@ -28,8 +28,6 @@ router.post('/initiatePayment', async function (req, res, next) {
         console.log(paramObj);
 
         await braintreeClass.createSettlementObject.apply(paramObj).then((responseObj) => {
-            // console.log("submitForSettlement");
-            // console.log(responseObj);
             res.send(responseObj);
         });
     } catch (error) {

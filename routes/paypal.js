@@ -10,6 +10,7 @@ router.get('/pay', function (req, res, next) {
 
 	dbHelper.updatePaymentDetails(constants.PAYMENT_SUCCESS_STATUS, updateId);
 
+	// res.writeHead(200, { 'Content-Type': 'text/plain' });
 	res.send(constants.PAYMENT_SUCCESSFUL);
 });
 
@@ -18,6 +19,7 @@ router.get('/cancel', function (req, res, next) {
 
 	dbHelper.updatePaymentDetails(constants.PAYMENT_FAILED_STATUS, updateId);
 
+	// res.writeHead(200, { 'Content-Type': 'text/plain' });
 	res.send(constants.PAYMENT_NOT_SUCCESSFUL);
 });
 

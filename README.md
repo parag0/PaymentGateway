@@ -38,3 +38,7 @@ setx BRAINTREE_PRIVATE_KEY [YOUR_BRAINTREE_PRIVATE_KEY](https://articles.braintr
 
 For using Braintree payments, you'll also need to replace the tokenization key with [YOUR_TOKENIZATION_KEY](https://developers.braintreepayments.com/guides/authorization/tokenization-key/ios/v4#obtaining-a-tokenization-key)
 
+## Database
+
+Create MySQL DB schema provided in the db.sql file.
+
