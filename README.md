@@ -42,3 +42,11 @@ For using Braintree payments, you'll also need to replace the tokenization key w
 
 Create MySQL DB schema provided in the db.sql file.
 
+
+## Test
+
+To execute test case using Chai, use following command
+
+```
+npm test
+```
