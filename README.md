@@ -50,3 +50,11 @@ To execute test case using Chai, use following command
 ```
 npm test
 ```
+
+## Reference
+
+1. [Install the Paypal REST SDK](https://developer.paypal.com/docs/api/quickstart)
+
+2. [The use of the PayPal REST /payments APIs to accept credit card payments is restricted.](https://developer.paypal.com/docs/integration/direct/payments)
+
+3. [Braintree Multiple Currencies Setup](https://articles.braintreepayments.com/get-started/try-it-out#testing-currencies)
