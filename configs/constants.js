@@ -7,5 +7,8 @@ module.exports = Object.freeze({
     INVALID_PARAMETER: "Invalid Parameter",
     PAYMENT_NOT_SUCCESSFUL: "Payment Not Successful",
     PAYMENT_SUCCESSFUL: "Payment Successful",
-    GENERIC_ERROR: "Error Occured"
+    GENERIC_ERROR: "Error Occured",
+    PAYMENT_SUCCESS_STATUS: "Success",
+    PAYMENT_PENDING_STATUS: "Pending",
+    PAYMENT_FAILED_STATUS: "FAILED"
 });

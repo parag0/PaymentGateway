@@ -1,35 +1,9 @@
 'use strict'
 var braintree = require('braintree');
+const constants = require("../configs/constants");
+const dbHelper = require('../controller/dbHelper');
 
 class BraintreePaymentProcessor {
-    // /**
-    //  * Creates a braintree request object to be used for creating payment
-    //  * @param {object} - accepts an argument object
-    //  * @return {object} - returns a braintree transaction.sale() request object
-    //  */
-    // createParamObject() {
-    //     return new Promise((resolve, reject) => {
-    //         var merchantidObj = {
-    //             'USD': 'personal',
-    //             'EUR': 'parag_bosta',
-    //             'THB': 'parag_bosta_thb',
-    //             'HKD': 'parag_bosta_hkd',
-    //             'SGD': 'parag_bosta_sgd',
-    //             'AUD': 'parag_bosta_aud'
-    //         }
-
-    //         var saleObj = {
-    //             amount: this.price,
-    //             paymentMethodNonce: this.paymentMethodNonce,
-    //             merchantAccountId: merchantidObj[this.currency] || 'personal',
-    //             options: {
-    //                 submitForSettlement: true
-    //             }
-    //         }
-    //         resolve(saleObj);
-    //     });
-    // }
-
     /**
      * Creates a braintree request object to be used for creating payment
      * @return {object} - returns a braintree transaction.sale() response object
@@ -51,6 +25,7 @@ class BraintreePaymentProcessor {
                 'SGD': 'parag_bosta_sgd',
                 'AUD': 'parag_bosta_aud'
             }
+            var updateId = this.updateId;
 
             gateway.transaction.sale({
                 amount: this.price,
@@ -62,15 +37,18 @@ class BraintreePaymentProcessor {
             }).then(function (result) {
                 if (result.success) {
                     console.log('Transaction ID: ' + result.transaction.id);
+                    dbHelper.updatePaymentDetails(constants.PAYMENT_SUCCESS_STATUS, updateId);
                     // return result;
                     resolve(result);
                 } else {
                     console.error(result.message);
+                    dbHelper.updatePaymentDetails(constants.PAYMENT_FAILED_STATUS, updateId);
                     // return result.message;
-                    resolve(result.message);
+                    reject(result.message);
                 }
             }).catch(function (err) {
                 console.error(err);
+                reject(err);
             });
         });
     }

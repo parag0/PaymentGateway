@@ -112,7 +112,7 @@
                                 <label class="control-label col-sm-12" for="ssn">Price:</label>
                                 <div class="col-sm-12">
                                     <input type="number" name="amount" min="0.00" max="10000.00" class="form-control"
-                                        id="price">
+                                        id="price" required>
                                 </div>
                             </div>
 
@@ -120,7 +120,8 @@
                                 <label class="control-label col-sm-12" for="ssn">Currency:</label>
                                 <div class="col-sm-12">
                                     <div class="btn-group">
-                                        <select type="button" id="currency" class="btn btn-info" name="currency">
+                                        <select type="button" id="currency" class="btn btn-info" name="currency"
+                                            required>
                                             <div class="dropdown-menu">
                                                 <option class="dropdown-item" href="#">Select Currency</option>
                                                 <option class="dropdown-item" href="#">USD</option>
@@ -138,7 +139,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-12" for="ssn">Customer Full Name:</label>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="cust_name" name="cust_name">
+                                    <input type="text" class="form-control" id="cust_name" name="cust_name" required>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +154,8 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-8" for="ssn">Credit Card Holder Name:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="cc_holder_name" name="card_holder_name">
+                                    <input type="text" class="form-control" id="cc_holder_name" name="card_holder_name"
+                                        required>
                                 </div>
                             </div>
 
@@ -161,22 +163,20 @@
                                 <label class="control-label col-sm-8 hosted-fields--label" for="card-number">Credit
                                     Card Number:</label>
                                 <div class="col-sm-8">
-                                    <div class="form-control hosted-field" id="card-number">
-                                    </div>
+                                    <div class="form-control hosted-field" id="card-number" required></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-8 hosted-fields--label"
                                         for="expiration-date">Credit Card Expiration:</label>
                                     <div class="col-sm-8">
-                                        <div class="form-control hosted-field" id="expiration-date"></div>
+                                        <div class="form-control hosted-field" id="expiration-date" required></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-8 hosted-fields--label" for="cvv">Credit Card
                                         CVV:</label>
                                     <div class="col-sm-8">
-                                        <div class="form-control hosted-field" id="cvv">
-                                        </div>
+                                        <div class="form-control hosted-field" id="cvv" required></div>
                                     </div>
                                 </div>
                                 <div id="checkout-message"></div>
@@ -264,23 +264,23 @@
                             data: dataObj
                         }).done(function (result) {
                             console.log(result);
-                            // // Tear down the Drop-in UI
-                            // hostedFieldsInstance.teardown(function (teardownErr) {
-                            //     if (teardownErr) {
-                            //         console.error('Could not tear down Drop-in UI!');
-                            //     } else {
-                            //         console.info('Drop-in UI has been torn down!');
-                            //         // Remove the 'Submit payment' button
-                            //         $('#submit-button').remove();
-                            //     }
-                            // });
-
                             if (result.success) {
-                                $('#checkout-message').html('<h1>Success</h1><p>Your Drop-in UI is working! Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>');
+                                $('#checkout-message').html('<h1>Success</h1><p>Your Transaction is successful.</p>');
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 2000);
                             } else {
                                 console.log(result);
-                                $('#checkout-message').html('<h1>Error</h1><p>Check your console.</p>');
+                                $('#checkout-message').html('<h1>Error</h1><p>Please try again</p>');
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 2000);
                             }
+                        }).error(function (result) {
+                            $('#checkout-message').html('<h1>Error</h1><p>Please try again</p>');
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
                         });
                     });
                 }, false);

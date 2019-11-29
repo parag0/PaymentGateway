@@ -21,7 +21,7 @@ class PayPalPaymentProcessor {
 	 * @param {string} currency - curreny to be used for transaction
 	 * @return {object} - returns a json payment object
 	 */
-	getPaymentRequestObject(amount, currency) {
+	getPaymentRequestObject(amount, currency, insertId) {
 		return new Promise((resolve, reject) => {
 			resolve(JSON.stringify({
 				intent: 'sale',
@@ -30,8 +30,8 @@ class PayPalPaymentProcessor {
 				},
 				note_to_payer: 'This is a dummy note',
 				redirect_urls: {
-					return_url: constants.PAYPAL_RETURN_URL,
-					cancel_url: constants.PAYPAL_CANCEL_URL
+					return_url: constants.PAYPAL_RETURN_URL + "?updateId=" + insertId,
+					cancel_url: constants.PAYPAL_CANCEL_URL + "?updateId=" + insertId
 				},
 				transactions: [{
 					amount: {
