@@ -19,6 +19,7 @@ class PayPalPaymentProcessor {
 	 * Creates a payment request object to be used for creating payment
 	 * @param {string} amount - amount to pay
 	 * @param {string} currency - curreny to be used for transaction
+	 * @param {string} insertId - mysql table row insert id 
 	 * @return {object} - returns a json payment object
 	 */
 	getPaymentRequestObject(amount, currency, insertId) {

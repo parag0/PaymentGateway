@@ -265,6 +265,7 @@
                         }).done(function (result) {
                             console.log(result);
                             if (result.success) {
+                                console.log(result.success);
                                 $('#checkout-message').html('<h1>Success</h1><p>Your Transaction is successful.</p>');
                                 setTimeout(() => {
                                     location.reload();

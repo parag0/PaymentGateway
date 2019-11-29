@@ -10,4 +10,8 @@ router.get('/braintree', function (req, res, next) {
   res.sendFile(path.resolve() + '/views/braintree_pay.html');
 });
 
+router.get('/', function (req, res, next) {
+  res.sendFile(path.resolve() + '/views/paypal_checkout.html');
+});
+
 module.exports = router;

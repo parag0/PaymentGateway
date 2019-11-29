@@ -1,0 +1,119 @@
+swagger: "2.0"
+info:
+  description: "NodeJs app developed for Paypal and Braintree integration. For now only tested on credit cards with currency support for ['USD','EUR','THB','HKD','SGD','AUD']"
+  version: "1.0.0"
+  title: "Paypal and Braintree Payment Gateway"
+  contact:
+    email: "parag242001@gmail.com"
+host: "localhost:3001"
+tags:
+- name: "PayPal"
+  description: "List of APIs for PayPal Integration"
+- name: "Braintree"
+  description: "List of APIs for Braintree Integration"
+schemes:
+- "http"
+paths:
+  /payments/paypal/initiatePayment:
+    post:
+      tags:
+      - "PayPal"
+      summary: ""
+      description: "Initiates payment with paypal credentials"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "HTTP/1.1 301"
+      parameters:
+      - in: "formData"
+        name: "amount"
+        type: "string"
+        description: "Amount to be paid"
+        required: true
+      - in: "formData"
+        name: "currency"
+        type: "string"
+        description: "Currency of Amount"
+        required: true
+      - in: "formData"
+        name: "cust_name"
+        type: "string"
+        description: "Name of the paying user"
+        required: true
+      responses:
+        301:
+          description: "Redirects to Paypal payments page"
+        500:
+          description: "Error Occured"
+  /payments/paypal/pay:
+    get:
+      tags:
+      - "PayPal"
+      summary: ""
+      description: "Updates payment transaction status in database"
+      produces:
+      - "String"
+      parameters:
+      - name: "updateId"
+        in: "query"
+        type: "string"
+        description: "Id of the row against which payment status will be updated"
+        required: true
+      responses:
+        200:
+          description: "Payment Successful"
+  /payments/paypal/cancel:
+    get:
+      tags:
+      - "PayPal"
+      summary: ""
+      description: "Updates payment transaction status in database"
+      produces:
+      - "String"
+      parameters:
+      - name: "updateId"
+        in: "query"
+        type: "string"
+        description: "Id of the row against which payment status will be updated"
+        required: true
+      responses:
+        200:
+          description: "Payment Not Successful"
+  /payments/braintree/initiatePayment:
+    post:
+      tags:
+      - "Braintree"
+      summary: ""
+      description: "Initiates payment with braintree credentials"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: body
+        name: user
+        description: The user to create.
+        schema:
+          type: object
+          required:
+            - paymentMethodNonce
+            - price
+            - currency
+            - customerName
+            - creditCardHolderName
+          properties:
+              paymentMethodNonce:
+                type: string
+              price:
+                type: string
+              currency:
+                type: string
+              customerName:
+                type: string
+              creditCardHolderName:
+                type: string
+      responses:
+        200:
+          description: "Success message"
+        500:
+          description: "Error Occured"
